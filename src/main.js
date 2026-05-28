@@ -35,10 +35,12 @@ form.addEventListener('submit', e => {
         return;
     }
 
-
     clearGallery();
     hideLoadMoreButton();
     showLoader();
+    if (loadMessage) {
+        loadMessage.classList.remove('is-hidden');
+    }
 
     const loadImages = async () => {
         try {
@@ -73,8 +75,12 @@ form.addEventListener('submit', e => {
                 title: 'Error',
                 message: 'Something went wrong while loading images.',
             });
+        } finally {
+            hideLoader();
+            if (loadMessage) {
+                loadMessage.classList.add('is-hidden');
+            }
         }
-        hideLoader();
     };
 
     form.reset();
@@ -84,7 +90,11 @@ form.addEventListener('submit', e => {
 loadMoreBtn.addEventListener('click', async () => {
     if (!inputQueryValue) return;
 
+    hideLoadMoreButton();
     showLoader();
+    if (loadMessage) {
+        loadMessage.classList.remove('is-hidden');
+    }
 
     try {
         page += 1;
@@ -128,7 +138,11 @@ loadMoreBtn.addEventListener('click', async () => {
             message: 'Something went wrong while loading images.',
         });
         page -= 1;
+        checkStatusLoadMoreButton(page, totalPages);
+    } finally {
+        hideLoader();
+        if (loadMessage) {
+            loadMessage.classList.add('is-hidden');
+        }
     }
-
-    hideLoader();
 });
