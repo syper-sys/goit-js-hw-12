@@ -91,9 +91,9 @@
     border-radius: 4px;
     overflow: hidden;
     display: flex;
-    flex-direction: column; /* Картинка зверху, інфо знизу */
+    flex-direction: column;
     background-color: #fff;
-    box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08); /* Легка тінь, як на макеті */
+    box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08);
 }
 
 .gallery-link {
