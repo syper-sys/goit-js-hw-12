@@ -46,6 +46,17 @@ export function createGallery(images) {
     lightbox.refresh();
 }
 
+export function appendGallery(images) {
+    const gallery = document.querySelector('.gallery');
+    if (!gallery) {
+        return;
+    }
+
+    gallery.insertAdjacentHTML('beforeend', imagesTemplate(images));
+    const lightbox = initLightbox();
+    lightbox.refresh();
+}
+
 export function clearGallery() {
     const gallery = document.querySelector('.gallery');
     if (gallery) {
@@ -57,15 +68,39 @@ export function clearGallery() {
 }
 
 export function showLoader() {
-    const loader = document.querySelector('.loader');
+    const loader = document.querySelector('.load-message');
     if (loader) {
         loader.classList.remove('is-hidden');
     }
 }
 
 export function hideLoader() {
-    const loader = document.querySelector('.loader');
+    const loader = document.querySelector('.load-message');
     if (loader) {
         loader.classList.add('is-hidden');
+    }
+}
+
+export function checkStatusLoadMoreButton(currentPage, totalPages){
+    if (currentPage < totalPages) {
+        showLoadMoreButton();
+    } else {
+        hideLoadMoreButton();
+    }
+}
+
+export function showLoadMoreButton() {
+    const loadMoreButton = document.querySelector('.loader-btn');
+    if (loadMoreButton) {
+        loadMoreButton.classList.remove('is-hidden');
+        loadMoreButton.disabled = false;
+    }
+}
+
+export function hideLoadMoreButton() {
+    const loadMoreButton = document.querySelector('.loader-btn');
+    if (loadMoreButton) {
+        loadMoreButton.classList.add('is-hidden');
+        loadMoreButton.disabled = true;
     }
 }
